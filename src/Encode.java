@@ -2,8 +2,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * @author Bob Nisco
@@ -13,6 +15,40 @@ public class Encode {
 
 	public Encode() {
 		super();
+	}
+
+	/**
+	 * Implementation of the Huffman Algorithm as found on page 431 in CLRS textbook
+	 * @param map a map of the character to frequencies
+	 * @return the root node of the Huffman tree
+	 */
+	private Node huffman(Map<Character, Integer> map) {
+		PriorityQueue<Node> q = new PriorityQueue<>(convertMapToList(map));
+
+		for (int i = 1; i < map.size(); i++) {
+			Node z = new Node();
+			Node x = q.poll();
+			z.left = x;
+			Node y = q.poll();
+			z.right = y;
+			z.freq = x.freq + y.freq;
+			q.add(z);
+		}
+		return q.poll();
+	}
+
+	/**
+	 * Utility function to convert a map to a list of nodes
+	 * Used for seeding the PriorityQueue in the Huffman Algorithm
+	 * @param map
+	 * @return
+	 */
+	private static ArrayList<Node> convertMapToList(Map<Character, Integer> map) {
+		ArrayList<Node> list = new ArrayList<>();
+		for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+			list.add(new Node(entry.getKey(), entry.getValue()));
+		}
+		return list;
 	}
 
 	/**
@@ -84,5 +120,8 @@ public class Encode {
 
 		Map<Character, Integer> map = encode.createCharacterFrequencyMap(text);
 		System.out.println(map.toString());
+
+		Node rootNode = encode.huffman(map);
+		System.out.println(rootNode);
 	}
 }
