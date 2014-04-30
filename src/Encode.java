@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * An Encode class for a canonical Huffman Tree
  * @author Bob Nisco
  */
 
@@ -34,6 +35,11 @@ public class Encode {
 		return q.poll();
 	}
 
+	/**
+	 * Function to turn a Huffman tree into a canonical Huffman Tree
+	 * @param root the root node of the Huffman Tree
+	 * @return the root node of the canonical Huffman Tree
+	 */
 	private Node canonicalHuffmanTree(Node root) {
 		// First we'll extract the encodings for each character
 		ArrayList<HuffmanTuple> encodings = this.extractEncodings(root);
@@ -48,7 +54,7 @@ public class Encode {
 	 * Extract the representations of the characters
 	 * after the Huffman Tree has been made.
 	 * @param root the root node of the Huffman Tree
-	 * @return
+	 * @return an ArrayList of the HuffmanTuples that maps a character to an encoding
 	 */
 	private ArrayList<HuffmanTuple> extractEncodings(Node root) {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
@@ -63,22 +69,22 @@ public class Encode {
 	 * @param list the list to append new tuples to
 	 */
 	private static void performInorderTraversal(Node current, String representation, ArrayList<HuffmanTuple> list) {
-		if (current.left != null) {
-			performInorderTraversal(current.left, representation + "0", list);
+		if (current == null) {
+			return;
 		}
+
+		performInorderTraversal(current.left, representation + "0", list);
 		if (current.letter != '\u0000') {
 			list.add(new HuffmanTuple(current.letter, representation));
 		}
-		if (current.right != null) {
-			performInorderTraversal(current.right, representation + "1", list);
-		}
+		performInorderTraversal(current.right, representation + "1", list);
 	}
 
 	/**
 	 * Utility function to convert a map to a list of nodes
 	 * Used for seeding the PriorityQueue in the Huffman Algorithm
-	 * @param map
-	 * @return
+	 * @param map a map of characters to integers
+	 * @return an arraylist of nodes
 	 */
 	private static ArrayList<Node> convertMapToList(Map<Character, Integer> map) {
 		ArrayList<Node> list = new ArrayList<>();
@@ -136,7 +142,7 @@ public class Encode {
 
 	/**
 	 * A main method for Encode
-	 * @param args
+	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		Encode encode = new Encode();
