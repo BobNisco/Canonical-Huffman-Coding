@@ -2,10 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @author Bob Nisco
@@ -35,6 +32,46 @@ public class Encode {
 			q.add(z);
 		}
 		return q.poll();
+	}
+
+	private Node canonicalHuffmanTree(Node root) {
+		// First we'll extract the encodings for each character
+		ArrayList<HuffmanTuple> encodings = this.extractEncodings(root);
+		for (HuffmanTuple t : encodings) {
+			System.out.println(t.toString());
+		}
+
+		return root;
+	}
+
+	/**
+	 * Extract the representations of the characters
+	 * after the Huffman Tree has been made.
+	 * @param root the root node of the Huffman Tree
+	 * @return
+	 */
+	private ArrayList<HuffmanTuple> extractEncodings(Node root) {
+		ArrayList<HuffmanTuple> list = new ArrayList<>();
+		Encode.performInorderTraversal(root, "", list);
+		return list;
+	}
+
+	/**
+	 * Internal static handler for performing recursive inorder traversal
+	 * @param current the current node we're dealing with
+	 * @param representation the current binary representation
+	 * @param list the list to append new tuples to
+	 */
+	private static void performInorderTraversal(Node current, String representation, ArrayList<HuffmanTuple> list) {
+		if (current.left != null) {
+			performInorderTraversal(current.left, representation + "0", list);
+		}
+		if (current.letter != '\u0000') {
+			list.add(new HuffmanTuple(current.letter, representation));
+		}
+		if (current.right != null) {
+			performInorderTraversal(current.right, representation + "1", list);
+		}
 	}
 
 	/**
@@ -111,8 +148,8 @@ public class Encode {
 			targetFilePath = args[1];
 		} else {
 			// Sample data for ease of use when running while developing
-			sourceFilePath = "samples/input/sample1.txt";
-			targetFilePath = "samples/output/sample1.txt";
+			sourceFilePath = "samples/input/sample2.txt";
+			targetFilePath = "samples/output/sample2.txt";
 		}
 
 		String text = encode.readFromFile(sourceFilePath);
@@ -122,6 +159,7 @@ public class Encode {
 		System.out.println(map.toString());
 
 		Node rootNode = encode.huffman(map);
-		System.out.println(rootNode);
+
+		encode.canonicalHuffmanTree(rootNode);
 	}
 }
