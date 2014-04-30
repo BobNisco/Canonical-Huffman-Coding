@@ -54,11 +54,23 @@ public class Encode {
 	 * Extract the representations of the characters
 	 * after the Huffman Tree has been made.
 	 * @param root the root node of the Huffman Tree
-	 * @return an ArrayList of the HuffmanTuples that maps a character to an encoding
+	 * @return a sorted ArrayList based on lexicographical order
+	 *         of the HuffmanTuples that maps a character to an encoding
 	 */
 	private ArrayList<HuffmanTuple> extractEncodings(Node root) {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
 		Encode.performInorderTraversal(root, "", list);
+		// Sort the list into alphabetical order
+		Collections.sort(list, new Comparator<HuffmanTuple>() {
+			public int compare(HuffmanTuple o1, HuffmanTuple o2) {
+				if (o1.letter > o2.letter) {
+					return 1;
+				} else if (o1.letter < o2.letter) {
+					return -1;
+				}
+				return 0;
+			}
+		});
 		return list;
 	}
 
