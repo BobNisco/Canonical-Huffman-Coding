@@ -22,7 +22,7 @@ public class Encode {
 	 * @param map a map of the character to frequencies
 	 * @return the root node of the Huffman tree
 	 */
-	private Node huffman(Map<Character, Integer> map) {
+	protected Node huffman(Map<Character, Integer> map) {
 		PriorityQueue<Node> q = new PriorityQueue<>(convertMapToList(map));
 
 		for (int i = 1; i < map.size(); i++) {
@@ -57,7 +57,7 @@ public class Encode {
 	 * @return a Map<Character, Integer> where the key is the character
 	 *         and the value is how many times the character appears
 	 */
-	private Map<Character, Integer> createCharacterFrequencyMap(String text) {
+	protected Map<Character, Integer> createCharacterFrequencyMap(String text) {
 		Map<Character, Integer> map = new HashMap<>();
 		for (int i = 0; i < text.length(); i++) {
 			Character currentChar = text.charAt(i);

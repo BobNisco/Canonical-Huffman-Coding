@@ -11,6 +11,10 @@ public class Node implements Comparable<Node> {
 	public Node() {
 	}
 
+	public Node(int freq) {
+		this.freq = freq;
+	}
+
 	public Node(Node left, Node right, int freq, char letter) {
 		this.left = left;
 		this.right = right;
@@ -44,5 +48,20 @@ public class Node implements Comparable<Node> {
 			return -1;
 		}
 		return 0;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		if (obj == null || obj.getClass() != this.getClass()) {
+			return false;
+		}
+		Node o = (Node) obj;
+		if ((this.freq == o.freq) && (this.letter == o.letter)) {
+			return true;
+		}
+		return false;
 	}
 }
