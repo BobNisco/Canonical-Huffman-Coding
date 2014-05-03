@@ -41,8 +41,56 @@ public class Encode {
 	 * @return the root node of the canonical Huffman Tree
 	 */
 	private Node canonicalHuffmanTree(Node root) {
-		// First we'll extract the encodings for each character
+		// 1. Extract the encodings for each character
 		ArrayList<HuffmanTuple> encodings = this.extractEncodings(root);
+
+		// 2. Sort by length of binary representation
+		Collections.sort(encodings, new Comparator<HuffmanTuple>() {
+			@Override
+			public int compare(HuffmanTuple o1, HuffmanTuple o2) {
+				if (o1.representation.length() > o2.representation.length()) {
+					return 1;
+				} else if (o1.representation.length() < o2.representation.length()) {
+					return -1;
+				}
+				return 0;
+			}
+		});
+
+		// 3. For each letter with the same representation size,
+		//    sort those into alphabetical order
+		int startIndex = 0;
+		int endIndex = 0;
+		int currentSize = 0;
+		int currentIndex = 0;
+
+		while (true) {
+			try {
+				if (encodings.get(currentIndex).representation.length() == currentIndex) {
+					endIndex = currentIndex;
+				}
+				if (encodings.get(currentIndex).representation.length() > currentSize || currentIndex == encodings.size() - 1) {
+					Collections.sort(encodings.subList(startIndex, endIndex), new Comparator<HuffmanTuple>() {
+						@Override
+						public int compare(HuffmanTuple o1, HuffmanTuple o2) {
+							if (o1.letter > o2.letter) {
+								return 1;
+							} else if (o1.letter < o2.letter) {
+								return -1;
+							}
+							return 0;
+						}
+					});
+
+					currentSize = encodings.get(currentIndex).representation.length();
+					startIndex = currentIndex;
+				}
+				currentIndex++;
+			} catch (IndexOutOfBoundsException e) {
+				break;
+			}
+		}
+
 		for (HuffmanTuple t : encodings) {
 			System.out.println(t.toString());
 		}
@@ -54,23 +102,11 @@ public class Encode {
 	 * Extract the representations of the characters
 	 * after the Huffman Tree has been made.
 	 * @param root the root node of the Huffman Tree
-	 * @return a sorted ArrayList based on lexicographical order
-	 *         of the HuffmanTuples that maps a character to an encoding
+	 * @return an ArrayList of HuffmanTuples that maps a character to an encoding
 	 */
 	private ArrayList<HuffmanTuple> extractEncodings(Node root) {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
 		Encode.performInorderTraversal(root, "", list);
-		// Sort the list into alphabetical order
-		Collections.sort(list, new Comparator<HuffmanTuple>() {
-			public int compare(HuffmanTuple o1, HuffmanTuple o2) {
-				if (o1.letter > o2.letter) {
-					return 1;
-				} else if (o1.letter < o2.letter) {
-					return -1;
-				}
-				return 0;
-			}
-		});
 		return list;
 	}
 
