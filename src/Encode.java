@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -115,6 +112,19 @@ public class Encode {
 		return builder.toString();
 	}
 
+	protected void writeToFile(String outputPath) {
+		File file = new File(outputPath);
+
+		try (FileOutputStream outputStream = new FileOutputStream(file)) {
+			// 1. Ensure that the file exists before writing to it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Utility method to pad our hex inputs to 2 spaces
 	 * @param input the value to pad
@@ -169,49 +179,34 @@ public class Encode {
 	}
 
 	/**
-	 * Creates a map that counts the character frequencies
-	 * @param text the text to be read through
-	 * @return a Map<Character, Integer> where the key is the character
-	 *         and the value is how many times the character appears
-	 */
-	protected Map<Character, Integer> createCharacterFrequencyMap(String text) {
-		Map<Character, Integer> map = new HashMap<>();
-		for (int i = 0; i < text.length(); i++) {
-			Character currentChar = text.charAt(i);
-			Integer currentCharCount = map.get(currentChar);
-
-			if (currentCharCount == null) {
-				map.put(currentChar, 1);
-			} else {
-				map.put(currentChar, ++currentCharCount);
-			}
-		}
-		return map;
-	}
-
-	/**
-	 * An internal handler for reading from a file
+	 * An internal handler for reading from a file and creating the
+	 * frequency map
+	 * Utilizes a buffered reader and input stream reader so it can handle large files
 	 * @param filePath the file path of the file to be read
-	 * @return a string representation of the file
+	 * @return a map that maps the char to how many times it appears in the file
 	 */
-	private String readFromFile(String filePath) {
+	protected Map<Character, Integer> createMapFromFile(String filePath) {
+		Map<Character, Integer> map = new HashMap<>();
 		// Utilize Java 7's resources feature to auto-close the file
 		// so that we don't need to use a finally block to close it
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-			StringBuilder stringBuilder = new StringBuilder();
-			String line = br.readLine();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {
+			int currentByte;
+			char currentChar;
 
-			while (line != null) {
-				stringBuilder.append(line);
-				line = br.readLine();
+			while ((currentByte = br.read()) != -1) {
+				currentChar = (char) currentByte;
+				if (map.get(currentChar) == null) {
+					map.put(currentChar, 1);
+				} else {
+					map.put(currentChar, map.get(currentChar) + 1);
+				}
 			}
-			return stringBuilder.toString();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return map;
 	}
 
 	/**
@@ -232,10 +227,7 @@ public class Encode {
 			targetFilePath = "samples/output/sample2.txt";
 		}
 
-		String text = encode.readFromFile(sourceFilePath);
-		System.out.println(text);
-
-		Map<Character, Integer> map = encode.createCharacterFrequencyMap(text);
+		Map<Character, Integer> map = encode.createMapFromFile(sourceFilePath);
 		System.out.println(map.toString());
 
 		Node rootNode = encode.huffman(map);

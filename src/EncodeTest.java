@@ -18,8 +18,7 @@ public class EncodeTest {
 	@Test
 	public void testHuffman00() throws Exception {
 		// Set up a string with frequencies from the example from Pg 432 of CLRS
-		String sampleText = "fffffeeeeeeeeeccccccccccccbbbbbbbbbbbbbddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		Map<Character, Integer> map = encode.createCharacterFrequencyMap(sampleText);
+		Map<Character, Integer> map = encode.createMapFromFile("samples/input/sample2.txt");
 
 		Node rootNode = encode.huffman(map);
 
