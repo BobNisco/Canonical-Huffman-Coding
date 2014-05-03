@@ -1,3 +1,7 @@
+/**
+ * A tuple class specifically for Huffman Nodes
+ * @author Bob Nisco
+ */
 public class HuffmanTuple {
 	public char letter;
 	public String representation;

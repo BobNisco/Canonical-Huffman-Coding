@@ -5,7 +5,6 @@ import java.util.*;
  * An Encode class for a canonical Huffman Tree
  * @author Bob Nisco
  */
-
 public class Encode {
 
 	public Encode() {

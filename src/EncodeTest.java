@@ -6,6 +6,10 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * A JUnit test class for the Encode class
+ * @author Bob Nisco
+ */
 public class EncodeTest {
 
 	protected Encode encode;
