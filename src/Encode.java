@@ -99,6 +99,32 @@ public class Encode {
 	}
 
 	/**
+	 * Generates the hex string representation for the lookup codes
+	 * @param encodings a list of HuffmanTuples that is already in lexicographical order
+	 * @return the hex string representation for the lookup codes
+	 */
+	protected String generateLookupCode(ArrayList<HuffmanTuple> encodings) {
+		StringBuilder builder = new StringBuilder();
+		// 1. First will be the length of the list
+		builder.append(this.padHex(Integer.toHexString(encodings.size())));
+		// 2. For each of the letters, generate its hex encoding with length
+		for (HuffmanTuple tuple : encodings) {
+			builder.append(this.padHex(Integer.toHexString((int) tuple.letter)));
+			builder.append(this.padHex(Integer.toHexString(tuple.representation.length())));
+		}
+		return builder.toString();
+	}
+
+	/**
+	 * Utility method to pad our hex inputs to 2 spaces
+	 * @param input the value to pad
+	 * @return the padded value
+	 */
+	private String padHex(String input) {
+		return "00".substring(input.length()) + input;
+	}
+
+	/**
 	 * Extract the representations of the characters
 	 * after the Huffman Tree has been made.
 	 * @param root the root node of the Huffman Tree

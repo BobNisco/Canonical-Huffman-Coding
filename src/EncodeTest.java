@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -47,5 +48,19 @@ public class EncodeTest {
 		assertEquals(expectedRootNode.right.right.left, rootNode.right.right.left);
 		assertEquals(expectedRootNode.right.right.left.left, rootNode.right.right.left.left);
 		assertEquals(expectedRootNode.right.right.left.right, rootNode.right.right.left.right);
+	}
+
+	@Test
+	public void testCodeForLookup() throws Exception {
+		ArrayList<HuffmanTuple> list = new ArrayList<>();
+		list.add(new HuffmanTuple('a', "000"));
+		list.add(new HuffmanTuple('b', "010"));
+		list.add(new HuffmanTuple('c', "001"));
+		list.add(new HuffmanTuple('d', "1"));
+		list.add(new HuffmanTuple((char) 0x00, "011"));
+
+		String generatedString = encode.generateLookupCode(list);
+		String expectedString = "0561036203630364010003";
+		assertEquals(expectedString, generatedString);
 	}
 }
