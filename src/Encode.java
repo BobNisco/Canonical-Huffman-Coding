@@ -112,16 +112,8 @@ public class Encode {
 	}
 
 	protected void writeToFile(String outputPath) {
-		File file = new File(outputPath);
-
-		try (FileOutputStream outputStream = new FileOutputStream(file)) {
-			// 1. Ensure that the file exists before writing to it
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		WriteFile writeFile = new WriteFile(outputPath);
+		this.readFromFileAndDoWork(outputPath, writeFile);
 	}
 
 	/**
@@ -185,27 +177,30 @@ public class Encode {
 	 * @return a map that maps the char to how many times it appears in the file
 	 */
 	protected Map<Character, Integer> createMapFromFile(String filePath) {
-		Map<Character, Integer> map = new HashMap<>();
+		CreateFrequencyMap createFrequencyMap = new CreateFrequencyMap();
+		this.readFromFileAndDoWork(filePath, createFrequencyMap);
+		return createFrequencyMap.map;
+	}
+
+	/**
+	 * An internal handler for reading from a file and perform an action on it
+	 * @param filePath the file path of the file to read from
+	 * @param handler an instance of a class that implements IFileReader
+	 *                so that it can call the overridden doWork() method
+	 */
+	private void readFromFileAndDoWork(String filePath, IFileReader handler) {
 		// Utilize Java 7's resources feature to auto-close the file
 		// so that we don't need to use a finally block to close it
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {
 			int currentByte;
-			char currentChar;
-
 			while ((currentByte = br.read()) != -1) {
-				currentChar = (char) currentByte;
-				if (map.get(currentChar) == null) {
-					map.put(currentChar, 1);
-				} else {
-					map.put(currentChar, map.get(currentChar) + 1);
-				}
+				handler.doWork(currentByte);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return map;
 	}
 
 	/**
