@@ -18,6 +18,7 @@ public class WriteFile implements IFileReader {
 	public File file;
 	public FileOutputStream fileOutputStream;
 	public String byteBuffer;
+	public final int NUM_OF_BITS_TO_WRITE = 8;
 
 	/**
 	 * Constructor that takes in the file path of the file to write to
@@ -71,10 +72,10 @@ public class WriteFile implements IFileReader {
 	 */
 	private void writeToFile() {
 		try {
-			while (byteBuffer.length() >= 8) {
-				int i = Integer.parseInt(byteBuffer.substring(0, 8), 2);
+			while (byteBuffer.length() >= NUM_OF_BITS_TO_WRITE) {
+				int i = Integer.parseInt(byteBuffer.substring(0, NUM_OF_BITS_TO_WRITE), 2);
 				fileOutputStream.write(i);
-				byteBuffer = byteBuffer.substring(8, byteBuffer.length());
+				byteBuffer = byteBuffer.substring(NUM_OF_BITS_TO_WRITE, byteBuffer.length());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

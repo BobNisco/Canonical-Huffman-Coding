@@ -21,13 +21,17 @@ public class EncodeTest {
 		encode = new Encode();
 	}
 
+	/**
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void testHuffman00() throws Exception {
 		// Set up a string with frequencies from the example from Pg 432 of CLRS
 		// has modifications to deal with handling our EOF being added
-		Map<Character, Integer> map = encode.createMapFromFile("samples/input/sample2.txt");
+		Map<Character, Integer> map = Huffman.createMapFromFile("samples/input/sample2.txt");
 
-		Node rootNode = encode.huffman(map);
+		Node rootNode = Huffman.huffman(map);
 
 		// Build up expected tree
 		Node expectedRootNode = new Node(101);
@@ -67,7 +71,7 @@ public class EncodeTest {
 		list.add(new HuffmanTuple('d', "1"));
 		list.add(new HuffmanTuple((char) 0x00, "011"));
 
-		String generatedString = encode.generateLookupCode(list);
+		String generatedString = Huffman.generateLookupCode(list);
 		String expectedString = "0561036203630364010003";
 		assertEquals(expectedString, generatedString);
 	}

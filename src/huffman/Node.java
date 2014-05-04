@@ -9,13 +9,17 @@ public class Node implements Comparable<Node> {
 	public Node right;
 	public int freq;
 	public char letter;
+	public final char INTERIOR_NODE_CHAR = (char) 0x01;
 
 	public Node() {
 	}
 
 	public Node(int freq) {
 		this.freq = freq;
-		this.letter = (char) 0x01;
+		// We will use 0x01 ASCII code to denote these types of new nodes
+		// Originally, it would have just been 0x00, but since we use that
+		// for the EOF marker, we need to change the behavior.
+		this.letter = INTERIOR_NODE_CHAR;
 	}
 
 	public Node(Node left, Node right, int freq, char letter) {
