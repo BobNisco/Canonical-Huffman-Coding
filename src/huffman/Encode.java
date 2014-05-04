@@ -40,7 +40,7 @@ public class Encode {
 	/**
 	 * Function to turn a Huffman tree into a canonical Huffman Tree
 	 * @param root the root node of the Huffman Tree
-	 * @return the root node of the canonical Huffman Tree
+	 * @return the ArrayList of HuffmanTuples that represents the canonized encodings
 	 */
 	private ArrayList<HuffmanTuple> canonizeHuffmanTree(Node root) {
 		// 1. Extract the encodings for each character
@@ -106,7 +106,8 @@ public class Encode {
 	/**
 	 * Utility method to pad our hex inputs to 2 spaces
 	 * @param input the value to pad
-	 * @return the padded value
+	 * @param length the length of the whole string after padding
+	 * @return the padded string
 	 */
 	private String rightPadString(String input, int length) {
 		StringBuffer sb = new StringBuffer(length);
@@ -219,6 +220,6 @@ public class Encode {
 
 		Node rootNode = encode.huffman(map);
 
-		encode.canonizeHuffmanTree(rootNode);
+		ArrayList<HuffmanTuple> encodings = encode.canonizeHuffmanTree(rootNode);
 	}
 }
