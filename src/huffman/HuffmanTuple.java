@@ -1,3 +1,5 @@
+package huffman;
+
 /**
  * A tuple class specifically for Huffman Nodes
  * @author Bob Nisco

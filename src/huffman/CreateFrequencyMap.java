@@ -1,9 +1,11 @@
+package huffman;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * A class to handle creating a frequency map from an input file.
- * Impelements IFileReader so that we can pass the doWork() function
+ * Impelements huffman.IFileReader so that we can pass the doWork() function
  * into the function that actually reads a file
  * @author Bob Nisco
  */

@@ -1,8 +1,10 @@
+package huffman;
+
 import java.io.*;
 import java.util.*;
 
 /**
- * An Encode class for a canonical Huffman Tree
+ * An huffman.Encode class for a canonical Huffman Tree
  * @author Bob Nisco
  */
 public class Encode {
@@ -185,7 +187,7 @@ public class Encode {
 	/**
 	 * An internal handler for reading from a file and perform an action on it
 	 * @param filePath the file path of the file to read from
-	 * @param handler an instance of a class that implements IFileReader
+	 * @param handler an instance of a class that implements huffman.IFileReader
 	 *                so that it can call the overridden doWork() method
 	 */
 	private void readFromFileAndDoWork(String filePath, IFileReader handler) {
@@ -204,7 +206,7 @@ public class Encode {
 	}
 
 	/**
-	 * A main method for Encode
+	 * A main method for huffman.Encode
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {

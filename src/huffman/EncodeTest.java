@@ -1,3 +1,5 @@
+package huffman;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,7 +9,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
- * A JUnit test class for the Encode class
+ * A JUnit test class for the huffman.Encode class
  * @author Bob Nisco
  */
 public class EncodeTest {
@@ -39,7 +41,7 @@ public class EncodeTest {
 		expectedRootNode.right.right.left.left = new Node("f".charAt(0), 5);
 		expectedRootNode.right.right.left.right = new Node("e".charAt(0), 9);
 
-		// Compare each Node
+		// Compare each huffman.Node
 		assertEquals(expectedRootNode, rootNode);
 		assertEquals(expectedRootNode.left, rootNode.left);
 		assertEquals(expectedRootNode.right, rootNode.right);

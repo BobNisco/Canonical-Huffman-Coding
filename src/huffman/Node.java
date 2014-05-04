@@ -1,5 +1,7 @@
+package huffman;
+
 /**
- * A Node class that will be used in the Huffman algorithm
+ * A huffman.Node class that will be used in the Huffman algorithm
  * @author Bob Nisco
  */
 public class Node implements Comparable<Node> {
@@ -37,7 +39,7 @@ public class Node implements Comparable<Node> {
 	/**
 	 * Since we will be using these nodes in a Priority Queue, we will
 	 * implement the Comparable class so they are properly sorted
-	 * @param o the Node to compare to
+	 * @param o the huffman.Node to compare to
 	 * @return standard numeric representation for comparison
 	 */
 	@Override
