@@ -24,22 +24,25 @@ public class EncodeTest {
 	@Test
 	public void testHuffman00() throws Exception {
 		// Set up a string with frequencies from the example from Pg 432 of CLRS
+		// has modifications to deal with handling our EOF being added
 		Map<Character, Integer> map = encode.createMapFromFile("samples/input/sample2.txt");
 
 		Node rootNode = encode.huffman(map);
 
 		// Build up expected tree
-		Node expectedRootNode = new Node(100);
-		expectedRootNode.left = new Node("a".charAt(0), 45);
-		expectedRootNode.right = new Node(55);
+		Node expectedRootNode = new Node(101);
+		expectedRootNode.left = new Node('a', 45);
+		expectedRootNode.right = new Node(56);
 		expectedRootNode.right.left = new Node(25);
-		expectedRootNode.right.left.left = new Node("c".charAt(0), 12);
-		expectedRootNode.right.left.right = new Node("b".charAt(0), 13);
-		expectedRootNode.right.right = new Node(30);
-		expectedRootNode.right.right.right = new Node("d".charAt(0), 16);
-		expectedRootNode.right.right.left = new Node(14);
-		expectedRootNode.right.right.left.left = new Node("f".charAt(0), 5);
-		expectedRootNode.right.right.left.right = new Node("e".charAt(0), 9);
+		expectedRootNode.right.left.left = new Node('c', 12);
+		expectedRootNode.right.left.right = new Node('b', 13);
+		expectedRootNode.right.right = new Node(31);
+		expectedRootNode.right.right.right = new Node('d', 16);
+		expectedRootNode.right.right.left = new Node(15);
+		expectedRootNode.right.right.left.left = new Node(6);
+		expectedRootNode.right.right.left.left.right = new Node('f', 5);
+		expectedRootNode.right.right.left.left.left = new Node((char) 0x00, 1);
+		expectedRootNode.right.right.left.right = new Node('e', 9);
 
 		// Compare each huffman.Node
 		assertEquals(expectedRootNode, rootNode);

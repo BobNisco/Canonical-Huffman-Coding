@@ -28,6 +28,10 @@ public class Encode {
 			Node y = q.poll();
 			z.right = y;
 			z.freq = x.freq + y.freq;
+			// We will use 0x01 ASCII code to denote these types of new nodes
+			// Originally, it would have just been 0x00, but since we use that
+			// for the EOF marker, we need to change the behavior.
+			z.letter = (char) 0x01;
 			q.add(z);
 		}
 		return q.poll();
@@ -151,7 +155,7 @@ public class Encode {
 		}
 
 		performInorderTraversal(current.left, representation + "0", list);
-		if (current.letter != '\u0000') {
+		if (current.letter != (char) 0x01) {
 			list.add(new HuffmanTuple(current.letter, representation));
 		}
 		performInorderTraversal(current.right, representation + "1", list);
@@ -180,6 +184,8 @@ public class Encode {
 	 */
 	protected Map<Character, Integer> createMapFromFile(String filePath) {
 		CreateFrequencyMap createFrequencyMap = new CreateFrequencyMap();
+		// Manually insert the EOF marker into the map
+		createFrequencyMap.map.put((char) 0x00, 1);
 		this.readFromFileAndDoWork(filePath, createFrequencyMap);
 		return createFrequencyMap.map;
 	}

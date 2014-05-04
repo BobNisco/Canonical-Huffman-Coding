@@ -15,6 +15,7 @@ public class Node implements Comparable<Node> {
 
 	public Node(int freq) {
 		this.freq = freq;
+		this.letter = (char) 0x01;
 	}
 
 	public Node(Node left, Node right, int freq, char letter) {
