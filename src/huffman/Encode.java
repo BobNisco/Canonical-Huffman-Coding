@@ -42,7 +42,7 @@ public class Encode {
 	 * @param root the root node of the Huffman Tree
 	 * @return the ArrayList of HuffmanTuples that represents the canonized encodings
 	 */
-	private ArrayList<HuffmanTuple> canonizeHuffmanTree(Node root) {
+	protected ArrayList<HuffmanTuple> canonizeHuffmanTree(Node root) {
 		// 1. Extract the encodings for each character
 		ArrayList<HuffmanTuple> encodings = this.extractEncodings(root);
 
@@ -98,9 +98,10 @@ public class Encode {
 		return builder.toString();
 	}
 
-	protected void writeToFile(String outputPath) {
-		WriteFile writeFile = new WriteFile(outputPath);
-		this.readFromFileAndDoWork(outputPath, writeFile);
+	protected void writeToFile(String inputPath, String outputPath, ArrayList<HuffmanTuple> encodings) {
+		WriteFile writeFile = new WriteFile(outputPath, encodings);
+		this.readFromFileAndDoWork(inputPath, writeFile);
+		writeFile.writeEndOfFile();
 	}
 
 	/**
@@ -221,5 +222,8 @@ public class Encode {
 		Node rootNode = encode.huffman(map);
 
 		ArrayList<HuffmanTuple> encodings = encode.canonizeHuffmanTree(rootNode);
+		System.out.println(encodings);
+
+		encode.writeToFile(sourceFilePath, targetFilePath, encodings);
 	}
 }
