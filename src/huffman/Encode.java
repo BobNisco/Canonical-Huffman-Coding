@@ -42,11 +42,12 @@ public class Encode {
 	 * @param root the root node of the Huffman Tree
 	 * @return the root node of the canonical Huffman Tree
 	 */
-	private Node canonicalHuffmanTree(Node root) {
+	private ArrayList<HuffmanTuple> canonizeHuffmanTree(Node root) {
 		// 1. Extract the encodings for each character
 		ArrayList<HuffmanTuple> encodings = this.extractEncodings(root);
 
 		// 2. Sort by length of binary representation
+		//    If there is a tie, sort by lexicographical order
 		Collections.sort(encodings, new Comparator<HuffmanTuple>() {
 			@Override
 			public int compare(HuffmanTuple o1, HuffmanTuple o2) {
@@ -54,50 +55,30 @@ public class Encode {
 					return 1;
 				} else if (o1.representation.length() < o2.representation.length()) {
 					return -1;
+				} else {
+					// We have same length representation
+					// Need to break tie by sorting on letter
+					if (o1.letter > o2.letter) {
+						return 1;
+					} else if (o1.letter < o2.letter) {
+						return -1;
+					}
 				}
 				return 0;
 			}
 		});
 
-		// 3. For each letter with the same representation size,
-		//    sort those into alphabetical order
-		int startIndex = 0;
-		int endIndex = 0;
-		int currentSize = 0;
-		int currentIndex = 0;
-
-		while (true) {
-			try {
-				if (encodings.get(currentIndex).representation.length() == currentIndex) {
-					endIndex = currentIndex;
-				}
-				if (encodings.get(currentIndex).representation.length() > currentSize || currentIndex == encodings.size() - 1) {
-					Collections.sort(encodings.subList(startIndex, endIndex), new Comparator<HuffmanTuple>() {
-						@Override
-						public int compare(HuffmanTuple o1, HuffmanTuple o2) {
-							if (o1.letter > o2.letter) {
-								return 1;
-							} else if (o1.letter < o2.letter) {
-								return -1;
-							}
-							return 0;
-						}
-					});
-
-					currentSize = encodings.get(currentIndex).representation.length();
-					startIndex = currentIndex;
-				}
-				currentIndex++;
-			} catch (IndexOutOfBoundsException e) {
-				break;
+		// 3. Change each representation based on canonical order
+		int currentNum = 0;
+		for (int i = 0; i < encodings.size() - 1; i++) {
+			HuffmanTuple currentTuple = encodings.get(i);
+			if (currentTuple.representation.length() > Integer.toBinaryString(currentNum).length()) {
+				currentNum = currentNum << 1;
 			}
+			currentTuple.representation = this.rightPadString(Integer.toBinaryString(currentNum), currentTuple.representation.length());
+			currentNum++;
 		}
-
-		for (HuffmanTuple t : encodings) {
-			System.out.println(t.toString());
-		}
-
-		return root;
+		return encodings;
 	}
 
 	/**
@@ -108,11 +89,11 @@ public class Encode {
 	protected String generateLookupCode(ArrayList<HuffmanTuple> encodings) {
 		StringBuilder builder = new StringBuilder();
 		// 1. First will be the length of the list
-		builder.append(this.padHex(Integer.toHexString(encodings.size())));
+		builder.append(this.rightPadString(Integer.toHexString(encodings.size()), 2));
 		// 2. For each of the letters, generate its hex encoding with length
 		for (HuffmanTuple tuple : encodings) {
-			builder.append(this.padHex(Integer.toHexString((int) tuple.letter)));
-			builder.append(this.padHex(Integer.toHexString(tuple.representation.length())));
+			builder.append(this.rightPadString(Integer.toHexString((int) tuple.letter), 2));
+			builder.append(this.rightPadString(Integer.toHexString(tuple.representation.length()), 2));
 		}
 		return builder.toString();
 	}
@@ -127,8 +108,12 @@ public class Encode {
 	 * @param input the value to pad
 	 * @return the padded value
 	 */
-	private String padHex(String input) {
-		return "00".substring(input.length()) + input;
+	private String rightPadString(String input, int length) {
+		StringBuffer sb = new StringBuffer(length);
+		for (int i = 0; i < length; i++) {
+			sb.append("0");
+		}
+		return sb.toString().substring(input.length()) + input;
 	}
 
 	/**
@@ -234,6 +219,6 @@ public class Encode {
 
 		Node rootNode = encode.huffman(map);
 
-		encode.canonicalHuffmanTree(rootNode);
+		encode.canonizeHuffmanTree(rootNode);
 	}
 }
