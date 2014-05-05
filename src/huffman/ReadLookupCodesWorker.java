@@ -3,14 +3,14 @@ package huffman;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReadLookupCodes implements IFileReaderWorker {
+public class ReadLookupCodesWorker implements IFileReaderWorker {
 	protected Map<Character, Integer> map;
 	private int numberOfChars;
 	private int currentCodeIndex;
 	private boolean readChar;
 	private char inputChar;
 
-	public ReadLookupCodes() {
+	public ReadLookupCodesWorker() {
 		this.map = new HashMap<>();
 		this.numberOfChars = -1;
 		this.currentCodeIndex = -1;

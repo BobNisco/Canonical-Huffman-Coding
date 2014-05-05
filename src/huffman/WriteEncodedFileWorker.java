@@ -1,11 +1,6 @@
 package huffman;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A class to handle writing to the file while simultaneously reading in from a file
@@ -13,9 +8,9 @@ import java.util.Map;
  * and write it.
  * @author Bob Nisco
  */
-public class WriteEncodedFile extends FileWriterWorker {
+public class WriteEncodedFileWorker extends WriteFileWorker {
 
-	public WriteEncodedFile(String path, ArrayList<HuffmanTuple> encodings) {
+	public WriteEncodedFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
 		super(path, encodings);
 	}
 

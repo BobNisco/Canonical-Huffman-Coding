@@ -70,11 +70,11 @@ public class Huffman {
 	 * @return a map that maps the char to how many times it appears in the file
 	 */
 	public static Map<Character, Integer> createMapFromFile(String filePath) {
-		CreateFrequencyMap createFrequencyMap = new CreateFrequencyMap();
+		CreateFrequencyMapWorker createFrequencyMapWorker = new CreateFrequencyMapWorker();
 		// Manually insert the EOF marker into the map
-		createFrequencyMap.map.put((char) 0x00, 1);
-		Huffman.readFromFileAndDoWork(filePath, createFrequencyMap);
-		return createFrequencyMap.map;
+		createFrequencyMapWorker.map.put((char) 0x00, 1);
+		Huffman.readFromFileAndDoWork(filePath, createFrequencyMapWorker);
+		return createFrequencyMapWorker.map;
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class Huffman {
 	 * @param encodings the canonical encodings
 	 */
 	protected static void writeToFile(String inputPath, String outputPath, ArrayList<HuffmanTuple> encodings) {
-		WriteEncodedFile writeEncodedFile = new WriteEncodedFile(outputPath, encodings);
+		WriteEncodedFileWorker writeEncodedFile = new WriteEncodedFileWorker(outputPath, encodings);
 		writeEncodedFile.writeBeginningOfFile(Huffman.generateLookupCode(encodings));
 		Huffman.readFromFileAndDoWork(inputPath, writeEncodedFile);
 		writeEncodedFile.writeEndOfFile();
@@ -195,9 +195,9 @@ public class Huffman {
 	}
 
 	protected static Map<Character, Integer> createMapFromEncodedFile(String filePath) {
-		ReadLookupCodes readLookupCodes = new ReadLookupCodes();
-		Huffman.readFromFileAndDoWork(filePath, readLookupCodes);
-		return readLookupCodes.map;
+		ReadLookupCodesWorker readLookupCodesWorker = new ReadLookupCodesWorker();
+		Huffman.readFromFileAndDoWork(filePath, readLookupCodesWorker);
+		return readLookupCodesWorker.map;
 	}
 
 	/**

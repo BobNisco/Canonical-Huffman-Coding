@@ -9,7 +9,7 @@ import java.util.Map;
  * into the function that actually reads a file
  * @author Bob Nisco
  */
-public class CreateFrequencyMap implements IFileReaderWorker {
+public class CreateFrequencyMapWorker implements IFileReaderWorker {
 
 	Map<Character, Integer> map;
 	private char currentChar;
@@ -17,7 +17,7 @@ public class CreateFrequencyMap implements IFileReaderWorker {
 	/**
 	 * Constructor
 	 */
-	public CreateFrequencyMap() {
+	public CreateFrequencyMapWorker() {
 		this.map = new HashMap<>();
 	}
 

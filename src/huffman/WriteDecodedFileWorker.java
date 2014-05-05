@@ -2,9 +2,9 @@ package huffman;
 
 import java.util.ArrayList;
 
-public class WriteDecodedFile extends FileWriterWorker {
+public class WriteDecodedFileWorker extends WriteFileWorker {
 
-	public WriteDecodedFile(String path, ArrayList<HuffmanTuple> encodings) {
+	public WriteDecodedFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
 		super(path, encodings);
 	}
 

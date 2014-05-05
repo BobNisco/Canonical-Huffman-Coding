@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class FileWriterWorker implements IFileReaderWorker {
+public abstract class WriteFileWorker implements IFileReaderWorker {
 	public Map<Character, String> map;
 	private File file;
 	private FileOutputStream fileOutputStream;
 	public String byteBuffer;
 	public static final int NUM_OF_BITS_TO_WRITE = 8;
 
-	protected FileWriterWorker() {
+	protected WriteFileWorker() {
 	}
 
 	/**
@@ -22,7 +22,7 @@ public abstract class FileWriterWorker implements IFileReaderWorker {
 	 * @param path the path to the file to write to
 	 * @param encodings the canonical encodings
 	 */
-	public FileWriterWorker(String path, ArrayList<HuffmanTuple> encodings) {
+	public WriteFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
 		this.map = new HashMap<>();
 		this.file = new File(path);
 		this.byteBuffer = "";
