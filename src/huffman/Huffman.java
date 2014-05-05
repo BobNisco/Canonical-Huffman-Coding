@@ -86,9 +86,37 @@ public class Huffman {
 		// 1. Extract the encodings for each character
 		ArrayList<HuffmanTuple> encodings = Huffman.extractEncodings(root);
 
-		// 2. Sort by length of binary representation
-		//    If there is a tie, sort by lexicographical order
-		Collections.sort(encodings, new Comparator<HuffmanTuple>() {
+		// 2. Sort the encodings list
+		Huffman.sortHuffmanTuples(encodings);
+
+		// 3. Change each representation based on canonical order
+		Huffman.canonizeEncodings(encodings);
+		return encodings;
+	}
+
+	/**
+	 * Canonizes the ArrayList<HuffmanTuple>
+	 * @param encodings the list of Huffman Tuples to be canonized
+	 */
+	protected static void canonizeEncodings(ArrayList<HuffmanTuple> encodings) {
+		int currentNum = 0;
+		for (int i = 0; i < encodings.size(); i++) {
+			HuffmanTuple currentTuple = encodings.get(i);
+			if (currentTuple.representation.length() > Integer.toBinaryString(currentNum).length()) {
+				currentNum = currentNum << 1;
+			}
+			currentTuple.representation = Huffman.rightPadString(Integer.toBinaryString(currentNum), currentTuple.representation.length());
+			currentNum++;
+		}
+	}
+
+	/**
+	 * Sorts the Huffman Tuples by length of binary representation.
+	 * If there is a tie, sort by lexicographical order
+	 * @param list list of Huffman Tuples
+	 */
+	protected static void sortHuffmanTuples(ArrayList<HuffmanTuple> list) {
+		Collections.sort(list, new Comparator<HuffmanTuple>() {
 			@Override
 			public int compare(HuffmanTuple o1, HuffmanTuple o2) {
 				if (o1.representation.length() > o2.representation.length()) {
@@ -107,18 +135,6 @@ public class Huffman {
 				return 0;
 			}
 		});
-
-		// 3. Change each representation based on canonical order
-		int currentNum = 0;
-		for (int i = 0; i < encodings.size() - 1; i++) {
-			HuffmanTuple currentTuple = encodings.get(i);
-			if (currentTuple.representation.length() > Integer.toBinaryString(currentNum).length()) {
-				currentNum = currentNum << 1;
-			}
-			currentTuple.representation = Huffman.rightPadString(Integer.toBinaryString(currentNum), currentTuple.representation.length());
-			currentNum++;
-		}
-		return encodings;
 	}
 
 	/**
@@ -176,6 +192,12 @@ public class Huffman {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
 		Huffman.performInorderTraversal(root, "", list);
 		return list;
+	}
+
+	protected static Map<Character, Integer> createMapFromEncodedFile(String filePath) {
+		ReadLookupCodes readLookupCodes = new ReadLookupCodes();
+		Huffman.readFromFileAndDoWork(filePath, readLookupCodes);
+		return readLookupCodes.map;
 	}
 
 	/**
