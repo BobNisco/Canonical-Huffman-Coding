@@ -1,7 +1,7 @@
 package huffman;
 
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * An huffman.Encode class for a canonical Huffman Tree
@@ -9,8 +9,8 @@ import java.util.*;
  */
 public class Encode {
 
-	public String sourceFilePath;
-	public String targetFilePath;
+	private String sourceFilePath;
+	private String targetFilePath;
 
 	public Encode() {
 		super();

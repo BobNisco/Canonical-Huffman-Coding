@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * A JUnit test class for the huffman.Encode class
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class EncodeTest {
 
-	protected Encode encode;
+	private Encode encode;
 
 	@Before
 	public void setUp() throws Exception {

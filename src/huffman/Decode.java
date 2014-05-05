@@ -5,8 +5,8 @@ package huffman;
  * @author Bob Nisco
  */
 public class Decode {
-	public String sourceFilePath;
-	public String targetFilePath;
+	private String sourceFilePath;
+	private String targetFilePath;
 
 	public Decode() {
 		super();

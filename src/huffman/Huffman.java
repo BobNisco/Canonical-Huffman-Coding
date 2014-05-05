@@ -31,7 +31,7 @@ public class Huffman {
 	}
 
 	/**
-	 * Internal static handler for performing recursive inorder traversal
+	 * Internal static handler for performing recursive in-order traversal
 	 * @param current the current node we're dealing with
 	 * @param representation the current binary representation
 	 * @param list the list to append new tuples to
@@ -159,7 +159,7 @@ public class Huffman {
 	 * @return the padded string
 	 */
 	public static String rightPadString(String input, int length) {
-		StringBuffer sb = new StringBuffer(length);
+		StringBuilder sb = new StringBuilder(length);
 		for (int i = 0; i < length; i++) {
 			sb.append("0");
 		}

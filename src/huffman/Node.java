@@ -66,9 +66,6 @@ public class Node implements Comparable<Node> {
 			return false;
 		}
 		Node o = (Node) obj;
-		if ((this.freq == o.freq) && (this.letter == o.letter)) {
-			return true;
-		}
-		return false;
+		return (this.freq == o.freq) && (this.letter == o.letter);
 	}
 }

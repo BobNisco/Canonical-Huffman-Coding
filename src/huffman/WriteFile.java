@@ -14,16 +14,16 @@ import java.util.Map;
  * @author Bob Nisco
  */
 public class WriteFile implements IFileReader {
-	public Map<Character, String> map;
-	public File file;
-	public FileOutputStream fileOutputStream;
-	public String byteBuffer;
-	public final int NUM_OF_BITS_TO_WRITE = 8;
+	private Map<Character, String> map;
+	private File file;
+	private FileOutputStream fileOutputStream;
+	private String byteBuffer;
+	private final int NUM_OF_BITS_TO_WRITE = 8;
 
 	/**
 	 * Constructor that takes in the file path of the file to write to
 	 * @param path the path to the file to write to
-	 * @param encodings
+	 * @param encodings the canonical encodings
 	 */
 	public WriteFile(String path, ArrayList<HuffmanTuple> encodings) {
 		this.map = new HashMap<>();
