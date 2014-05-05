@@ -162,10 +162,10 @@ public class Huffman {
 	 * @param encodings the canonical encodings
 	 */
 	protected static void writeToFile(String inputPath, String outputPath, ArrayList<HuffmanTuple> encodings) {
-		WriteFile writeFile = new WriteFile(outputPath, encodings);
-		writeFile.writeBeginningOfFile(Huffman.generateLookupCode(encodings));
-		Huffman.readFromFileAndDoWork(inputPath, writeFile);
-		writeFile.writeEndOfFile();
+		WriteEncodedFile writeEncodedFile = new WriteEncodedFile(outputPath, encodings);
+		writeEncodedFile.writeBeginningOfFile(Huffman.generateLookupCode(encodings));
+		Huffman.readFromFileAndDoWork(inputPath, writeEncodedFile);
+		writeEncodedFile.writeEndOfFile();
 	}
 
 	/**

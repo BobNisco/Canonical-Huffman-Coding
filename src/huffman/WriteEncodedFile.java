@@ -13,9 +13,9 @@ import java.util.Map;
  * and write it.
  * @author Bob Nisco
  */
-public class WriteFile extends FileWriterWorker {
+public class WriteEncodedFile extends FileWriterWorker {
 
-	public WriteFile(String path, ArrayList<HuffmanTuple> encodings) {
+	public WriteEncodedFile(String path, ArrayList<HuffmanTuple> encodings) {
 		super(path, encodings);
 	}
 
