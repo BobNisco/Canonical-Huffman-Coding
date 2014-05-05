@@ -14,7 +14,7 @@ public class Huffman {
 	 * @param map a map of the character to frequencies
 	 * @return the root node of the Huffman tree
 	 */
-	protected static Node huffman(Map<Character, Integer> map) {
+	public static Node huffman(Map<Character, Integer> map) {
 		PriorityQueue<Node> q = new PriorityQueue<>(convertMapToList(map));
 
 		for (int i = 1; i < map.size(); i++) {
@@ -69,7 +69,7 @@ public class Huffman {
 	 * @param filePath the file path of the file to be read
 	 * @return a map that maps the char to how many times it appears in the file
 	 */
-	protected static Map<Character, Integer> createMapFromFile(String filePath) {
+	public static Map<Character, Integer> createMapFromFile(String filePath) {
 		CreateFrequencyMap createFrequencyMap = new CreateFrequencyMap();
 		// Manually insert the EOF marker into the map
 		createFrequencyMap.map.put((char) 0x00, 1);
@@ -142,7 +142,7 @@ public class Huffman {
 	 * @param encodings a list of HuffmanTuples that is already in lexicographical order
 	 * @return the hex string representation for the lookup codes
 	 */
-	protected static String generateLookupCode(ArrayList<HuffmanTuple> encodings) {
+	public static String generateLookupCode(ArrayList<HuffmanTuple> encodings) {
 		StringBuilder builder = new StringBuilder();
 		// 1. First will be the length of the list
 		builder.append(Huffman.rightPadString(Integer.toHexString(encodings.size()), 2));

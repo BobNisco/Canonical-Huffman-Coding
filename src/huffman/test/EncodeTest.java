@@ -1,5 +1,9 @@
-package huffman;
+package huffman.test;
 
+import huffman.Encode;
+import huffman.Huffman;
+import huffman.HuffmanTuple;
+import huffman.Node;
 import org.junit.Before;
 import org.junit.Test;
 
