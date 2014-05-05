@@ -147,6 +147,7 @@ public class Huffman {
 	 */
 	protected static void writeToFile(String inputPath, String outputPath, ArrayList<HuffmanTuple> encodings) {
 		WriteFile writeFile = new WriteFile(outputPath, encodings);
+		writeFile.writeBeginningOfFile(Huffman.generateLookupCode(encodings));
 		Huffman.readFromFileAndDoWork(inputPath, writeFile);
 		writeFile.writeEndOfFile();
 	}
@@ -157,7 +158,7 @@ public class Huffman {
 	 * @param length the length of the whole string after padding
 	 * @return the padded string
 	 */
-	private static String rightPadString(String input, int length) {
+	public static String rightPadString(String input, int length) {
 		StringBuffer sb = new StringBuffer(length);
 		for (int i = 0; i < length; i++) {
 			sb.append("0");

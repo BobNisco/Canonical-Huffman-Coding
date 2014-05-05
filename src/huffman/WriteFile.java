@@ -59,6 +59,16 @@ public class WriteFile implements IFileReader {
 		}
 	}
 
+	protected void writeBeginningOfFile(String headerString) {
+		for (int i = 0; i < headerString.length(); i += 2) {
+			int intRep = Integer.parseInt(headerString.substring(i, i + 2), 16);
+			String bin = Integer.toBinaryString(intRep);
+			String paddedBin = Huffman.rightPadString(bin, NUM_OF_BITS_TO_WRITE);
+			byteBuffer += paddedBin;
+			this.writeToFile();
+		}
+	}
+
 	/**
 	 * Writes the remaining bits and the end of file representation
 	 */
