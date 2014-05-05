@@ -3,7 +3,7 @@ package huffman;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReadLookupCodes implements IFileReader {
+public class ReadLookupCodes implements IFileReaderWorker {
 	protected Map<Character, Integer> map;
 	private int numberOfChars;
 	private int currentCodeIndex;

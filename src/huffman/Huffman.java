@@ -206,7 +206,7 @@ public class Huffman {
 	 * @param handler an instance of a class that implements huffman.IFileReader
 	 *                so that it can call the overridden doWork() method
 	 */
-	private static void readFromFileAndDoWork(String filePath, IFileReader handler) {
+	private static void readFromFileAndDoWork(String filePath, IFileReaderWorker handler) {
 		// Utilize Java 7's resources feature to auto-close the file
 		// so that we don't need to use a finally block to close it
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {

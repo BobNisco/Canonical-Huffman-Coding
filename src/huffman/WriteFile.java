@@ -13,7 +13,7 @@ import java.util.Map;
  * and write it.
  * @author Bob Nisco
  */
-public class WriteFile implements IFileReader {
+public class WriteFile implements IFileReaderWorker {
 	private Map<Character, String> map;
 	private File file;
 	private FileOutputStream fileOutputStream;
