@@ -28,11 +28,21 @@ public class Decode {
 	private void performDecode() {
 		// 1. Read in file and build huffman tree
 		Map<Character, Integer> map = Huffman.createMapFromEncodedFile(this.sourceFilePath);
-		ArrayList<HuffmanTuple> tuples = this.convertMapToTuples(map);
+		ArrayList<HuffmanTuple> tuples = Decode.convertMapToTuples(map);
 		Huffman.sortHuffmanTuples(tuples);
 		Huffman.canonizeEncodings(tuples);
 		// 2. Store codes for lookup
+		Map<Character, String> lookup = Decode.convertTuplesToLookupMap(tuples);
 		// 3. Decode data and write character output
+		System.out.println(lookup);
+	}
+
+	private static Map<Character, String> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {
+		Map<Character, String> map = new HashMap<>();
+		for (HuffmanTuple t : tuples) {
+			map.put(t.letter, t.representation);
+		}
+		return map;
 	}
 
 	/**
@@ -42,7 +52,7 @@ public class Decode {
 	 * @param map map of character to length count
 	 * @return the list of HuffmanTuples
 	 */
-	private ArrayList<HuffmanTuple> convertMapToTuples(Map<Character, Integer> map) {
+	private static ArrayList<HuffmanTuple> convertMapToTuples(Map<Character, Integer> map) {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
 		for (Map.Entry<Character, Integer> entry : map.entrySet()) {
 			// Make up garbage representations based on how long the rep is
