@@ -1,6 +1,7 @@
 package huffman;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,6 +16,7 @@ public class WriteEncodedFileWorker extends WriteFileWorker {
 
 	public WriteEncodedFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
 		super(path);
+		this.map = new HashMap<>();
 		this.initMap(encodings);
 	}
 

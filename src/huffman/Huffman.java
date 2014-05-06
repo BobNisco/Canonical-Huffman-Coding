@@ -103,7 +103,9 @@ public class Huffman {
 		for (int i = 0; i < encodings.size(); i++) {
 			HuffmanTuple currentTuple = encodings.get(i);
 			if (currentTuple.representation.length() > Integer.toBinaryString(currentNum).length()) {
-				currentNum = currentNum << 1;
+				// Calculate how many shifts to the left we need to make
+				int levelDifference = currentTuple.representation.length() - Integer.toBinaryString(currentNum).length();
+				currentNum = currentNum << levelDifference;
 			}
 			currentTuple.representation = Huffman.rightPadString(Integer.toBinaryString(currentNum), currentTuple.representation.length());
 			currentNum++;
