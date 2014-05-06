@@ -1,6 +1,7 @@
 package huffman;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A class to handle writing to the file while simultaneously reading in from a file
@@ -10,8 +11,23 @@ import java.util.ArrayList;
  */
 public class WriteEncodedFileWorker extends WriteFileWorker {
 
+	public Map<Character, String> map;
+
 	public WriteEncodedFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
-		super(path, encodings);
+		super(path);
+		this.initMap(encodings);
+	}
+
+
+	/**
+	 * Initializes the internal map with the encodings that were passed in
+	 * @param encodings the ArrayList of HuffmanTuples that will be converted
+	 *                  into a map for quicker lookup times
+	 */
+	private void initMap(ArrayList<HuffmanTuple> encodings) {
+		for (HuffmanTuple tuple : encodings) {
+			map.put(tuple.letter, tuple.representation);
+		}
 	}
 
 	protected void writeBeginningOfFile(String headerString) {

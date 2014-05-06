@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class WriteFileWorker implements IFileReaderWorker {
-	public Map<Character, String> map;
 	private File file;
 	private FileOutputStream fileOutputStream;
 	public String byteBuffer;
@@ -17,24 +16,14 @@ public abstract class WriteFileWorker implements IFileReaderWorker {
 	protected WriteFileWorker() {
 	}
 
-	protected WriteFileWorker(String path, Map<Character, String> map) {
-		this.map = map;
-		this.file = new File(path);
-		this.byteBuffer = "";
-		this.initFile();
-	}
-
 	/**
 	 * Constructor that takes in the file path of the file to write to
 	 * @param path the path to the file to write to
-	 * @param encodings the canonical encodings
 	 */
-	public WriteFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
-		this.map = new HashMap<>();
+	public WriteFileWorker(String path) {
 		this.file = new File(path);
 		this.byteBuffer = "";
 		this.initFile();
-		this.initMap(encodings);
 	}
 
 	/**
@@ -49,17 +38,6 @@ public abstract class WriteFileWorker implements IFileReaderWorker {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Initializes the internal map with the encodings that were passed in
-	 * @param encodings the ArrayList of HuffmanTuples that will be converted
-	 *                  into a map for quicker lookup times
-	 */
-	private void initMap(ArrayList<HuffmanTuple> encodings) {
-		for (HuffmanTuple tuple : encodings) {
-			map.put(tuple.letter, tuple.representation);
 		}
 	}
 

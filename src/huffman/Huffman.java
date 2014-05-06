@@ -168,7 +168,7 @@ public class Huffman {
 		writeEncodedFile.writeEndOfFile();
 	}
 
-	protected static void writeDecodedFile(String inputPath, String outputPath, Map<Character, String> map) {
+	protected static void writeDecodedFile(String inputPath, String outputPath, Map<String, Character> map) {
 		WriteDecodedFileWorker writeDecodedFileWorker = new WriteDecodedFileWorker(outputPath, map);
 		Huffman.readFromBinaryFileAndDoWork(inputPath, writeDecodedFileWorker);
 		System.out.println(writeDecodedFileWorker.byteBuffer);

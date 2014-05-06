@@ -32,16 +32,16 @@ public class Decode {
 		Huffman.sortHuffmanTuples(tuples);
 		Huffman.canonizeEncodings(tuples);
 		// 2. Store codes for lookup
-		Map<Character, String> lookup = Decode.convertTuplesToLookupMap(tuples);
+		Map<String, Character> lookup = Decode.convertTuplesToLookupMap(tuples);
 		// 3. Decode data and write character output
 		System.out.println(lookup);
 		Huffman.writeDecodedFile(this.sourceFilePath, this.targetFilePath, lookup);
 	}
 
-	private static Map<Character, String> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {
-		Map<Character, String> map = new HashMap<>();
+	private static Map<String, Character> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {
+		Map<String, Character> map = new HashMap<>();
 		for (HuffmanTuple t : tuples) {
-			map.put(t.letter, t.representation);
+			map.put(t.representation, t.letter);
 		}
 		return map;
 	}
