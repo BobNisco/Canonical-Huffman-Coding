@@ -43,7 +43,7 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 			firstByte = false;
 		} else if (bytesToSkip <= 0) {
 			// Add the current byte into the buffer
-			byteBuffer += Integer.toBinaryString(currentByte);
+			byteBuffer += Huffman.rightPadString(Integer.toBinaryString(currentByte), NUM_OF_BITS_TO_WRITE);
 			int currentLength = 1;
 
 			while (true) {
@@ -51,10 +51,11 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 					String current = this.byteBuffer.substring(0, currentLength);
 					Character possibility = this.map.get(current);
 					if (possibility != null) {
-						System.out.println(possibility);
+						//System.out.println(possibility);
 						this.byteBuffer = this.byteBuffer.substring(currentLength);
 						this.charToWrite = possibility;
 						this.writeToFile();
+						currentLength = 1;
 					} else {
 						currentLength++;
 					}
