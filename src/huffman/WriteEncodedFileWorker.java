@@ -1,5 +1,6 @@
 package huffman;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +49,21 @@ public class WriteEncodedFileWorker extends WriteFileWorker {
 	protected void writeEndOfFile() {
 		byteBuffer += map.get((char) 0x00);
 		this.writeToFile();
+	}
+
+	/**
+	 * Internal handler for writing the data to the file
+	 */
+	public void writeToFile() {
+		try {
+			while (byteBuffer.length() >= NUM_OF_BITS_TO_WRITE) {
+				int i = Integer.parseInt(byteBuffer.substring(0, NUM_OF_BITS_TO_WRITE), 2);
+				fileOutputStream.write(i);
+				byteBuffer = byteBuffer.substring(NUM_OF_BITS_TO_WRITE, byteBuffer.length());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

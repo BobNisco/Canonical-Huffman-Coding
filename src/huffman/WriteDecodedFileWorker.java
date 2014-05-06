@@ -1,17 +1,33 @@
 package huffman;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class WriteDecodedFileWorker extends WriteFileWorker {
 
-	private boolean firstByte = true;
-	private int bytesToSkip = 0;
+	private boolean firstByte;
+	private int bytesToSkip;
 	private Map<String, Character> map;
+	private char charToWrite;
 
 	public WriteDecodedFileWorker(String path, Map<String, Character> map) {
 		super(path);
 		this.map = map;
+		this.bytesToSkip = 0;
+		this.firstByte = true;
+		this.charToWrite = (char) 0x00;
+	}
+
+	/**
+	 * Internal handler for writing the data to the file
+	 */
+	public void writeToFile() {
+		try {
+			fileOutputStream.write(this.charToWrite);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -37,6 +53,8 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 					if (possibility != null) {
 						System.out.println(possibility);
 						this.byteBuffer = this.byteBuffer.substring(currentLength);
+						this.charToWrite = possibility;
+						this.writeToFile();
 					} else {
 						currentLength++;
 					}

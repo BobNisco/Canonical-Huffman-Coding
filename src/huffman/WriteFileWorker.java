@@ -9,7 +9,7 @@ import java.util.Map;
 
 public abstract class WriteFileWorker implements IFileReaderWorker {
 	private File file;
-	private FileOutputStream fileOutputStream;
+	protected FileOutputStream fileOutputStream;
 	public String byteBuffer;
 	public static final int NUM_OF_BITS_TO_WRITE = 8;
 
@@ -44,15 +44,5 @@ public abstract class WriteFileWorker implements IFileReaderWorker {
 	/**
 	 * Internal handler for writing the data to the file
 	 */
-	public void writeToFile() {
-		try {
-			while (byteBuffer.length() >= NUM_OF_BITS_TO_WRITE) {
-				int i = Integer.parseInt(byteBuffer.substring(0, NUM_OF_BITS_TO_WRITE), 2);
-				fileOutputStream.write(i);
-				byteBuffer = byteBuffer.substring(NUM_OF_BITS_TO_WRITE, byteBuffer.length());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	public abstract void writeToFile();
 }
