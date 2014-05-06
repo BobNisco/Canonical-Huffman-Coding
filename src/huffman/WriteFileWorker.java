@@ -17,6 +17,13 @@ public abstract class WriteFileWorker implements IFileReaderWorker {
 	protected WriteFileWorker() {
 	}
 
+	protected WriteFileWorker(String path, Map<Character, String> map) {
+		this.map = map;
+		this.file = new File(path);
+		this.byteBuffer = "";
+		this.initFile();
+	}
+
 	/**
 	 * Constructor that takes in the file path of the file to write to
 	 * @param path the path to the file to write to

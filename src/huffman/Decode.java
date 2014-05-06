@@ -35,6 +35,7 @@ public class Decode {
 		Map<Character, String> lookup = Decode.convertTuplesToLookupMap(tuples);
 		// 3. Decode data and write character output
 		System.out.println(lookup);
+		Huffman.writeDecodedFile(this.sourceFilePath, this.targetFilePath, lookup);
 	}
 
 	private static Map<Character, String> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {

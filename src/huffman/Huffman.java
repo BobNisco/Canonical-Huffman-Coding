@@ -161,11 +161,17 @@ public class Huffman {
 	 * @param outputPath the output file path
 	 * @param encodings the canonical encodings
 	 */
-	protected static void writeToFile(String inputPath, String outputPath, ArrayList<HuffmanTuple> encodings) {
+	protected static void writeEncodedFile(String inputPath, String outputPath, ArrayList<HuffmanTuple> encodings) {
 		WriteEncodedFileWorker writeEncodedFile = new WriteEncodedFileWorker(outputPath, encodings);
 		writeEncodedFile.writeBeginningOfFile(Huffman.generateLookupCode(encodings));
 		Huffman.readFromFileAndDoWork(inputPath, writeEncodedFile);
 		writeEncodedFile.writeEndOfFile();
+	}
+
+	protected static void writeDecodedFile(String inputPath, String outputPath, Map<Character, String> map) {
+		WriteDecodedFileWorker writeDecodedFileWorker = new WriteDecodedFileWorker(outputPath, map);
+		Huffman.readFromBinaryFileAndDoWork(inputPath, writeDecodedFileWorker);
+		System.out.println(writeDecodedFileWorker.byteBuffer);
 	}
 
 	/**
@@ -179,7 +185,11 @@ public class Huffman {
 		for (int i = 0; i < length; i++) {
 			sb.append("0");
 		}
-		return sb.toString().substring(input.length()) + input;
+		try {
+			return sb.toString().substring(input.length()) + input;
+		} catch (StringIndexOutOfBoundsException e) {
+			return input;
+		}
 	}
 
 	/**
@@ -212,6 +222,28 @@ public class Huffman {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {
 			int currentByte;
 			while ((currentByte = br.read()) != -1) {
+				handler.doWork(currentByte);
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Could not find file with the given path of: " + filePath);
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * An internal handler for reading from a binary file and perfoming an action on it.
+	 * Very similar to Huffman.readFromFileAndDoWork, but this uses a different reader
+	 * to properly read in binary data.
+	 * @param filePath the file path of the file to read from
+	 * @param handler an instance of a class that implements huffman.IFileReader
+	 *                so that it can call the overridden doWork() method
+	 */
+	private static void readFromBinaryFileAndDoWork(String filePath, IFileReaderWorker handler) {
+		try (DataInputStream ds = new DataInputStream(new BufferedInputStream(new FileInputStream(filePath)))) {
+			int currentByte;
+			while((currentByte = ds.read()) != -1) {
 				handler.doWork(currentByte);
 			}
 		} catch (FileNotFoundException e) {
