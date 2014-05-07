@@ -36,7 +36,7 @@ public class Huffman {
 	 * @param representation the current binary representation
 	 * @param list the list to append new tuples to
 	 */
-	static void performInorderTraversal(Node current, String representation, ArrayList<HuffmanTuple> list) {
+	private static void performInorderTraversal(Node current, String representation, ArrayList<HuffmanTuple> list) {
 		if (current == null) {
 			return;
 		}
@@ -100,11 +100,13 @@ public class Huffman {
 	 */
 	protected static void canonizeEncodings(ArrayList<HuffmanTuple> encodings) {
 		int currentNum = 0;
-		for (int i = 0; i < encodings.size(); i++) {
+		for (int i = encodings.size() - 1; i >= 0; i--) {
 			HuffmanTuple currentTuple = encodings.get(i);
 			currentTuple.representation = Huffman.rightPadString(Integer.toBinaryString(currentNum), currentTuple.representation.length());
-			if (i < encodings.size() - 1) {
-				currentNum = (currentNum + 1) << (encodings.get(i + 1).representation.length() - currentTuple.representation.length());
+			if (i > 0) {
+				// Only increment/shift the number if we're not at the end of the list
+				// otherwise we'll throw an IndexOutOfBoundsException
+				currentNum = (currentNum + 1) >> (currentTuple.representation.length() - encodings.get(i - 1).representation.length());
 			}
 		}
 	}
@@ -125,9 +127,9 @@ public class Huffman {
 				} else {
 					// We have same length representation
 					// Need to break tie by sorting on letter
-					if (o1.letter > o2.letter) {
+					if (o1.letter < o2.letter) {
 						return 1;
-					} else if (o1.letter < o2.letter) {
+					} else if (o1.letter > o2.letter) {
 						return -1;
 					}
 				}

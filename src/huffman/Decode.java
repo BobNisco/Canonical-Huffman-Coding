@@ -28,6 +28,7 @@ public class Decode {
 		Huffman.canonizeEncodings(tuples);
 		// 2. Store codes for lookup
 		Map<String, Character> lookup = Decode.convertTuplesToLookupMap(tuples);
+		System.out.println(lookup);
 		// 3. Decode data and write character output
 		Huffman.writeDecodedFile(this.sourceFilePath, this.targetFilePath, lookup);
 	}
@@ -77,7 +78,7 @@ public class Decode {
 			decode = new Decode(args[0], args[1]);
 		} else {
 			// Sample data for ease of use when running while developing
-			decode = new Decode("samples/output/sample3.huf", "samples/output/sample3_decoded.txt");
+			decode = new Decode("samples/output/sample9.huf", "samples/output/sample9_decoded.txt");
 		}
 
 		decode.performDecode();

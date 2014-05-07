@@ -32,6 +32,7 @@ public class Encode {
 		Node rootNode = Huffman.huffman(map);
 		// 3. Canonize the Huffman Tree
 		ArrayList<HuffmanTuple> encodings = Huffman.canonizeHuffmanTree(rootNode);
+		System.out.println(encodings);
 		// 4. Write the file based on the encoding
 		Huffman.writeEncodedFile(this.sourceFilePath, this.targetFilePath, encodings);
 	}
@@ -47,7 +48,7 @@ public class Encode {
 			encode = new Encode(args[0], args[1]);
 		} else {
 			// Sample data for ease of use when running while developing
-			encode = new Encode("samples/input/sample3.txt", "samples/output/sample3.huf");
+			encode = new Encode("samples/input/sample9.txt", "samples/output/sample9.huf");
 		}
 
 		encode.performEncode();
