@@ -52,7 +52,7 @@ public class Encode {
 			encode = new Encode(args[0], args[1]);
 		} else {
 			// Sample data for ease of use when running while developing
-			encode = new Encode("samples/input/sample5.txt", "samples/output/sample5.huf");
+			encode = new Encode("samples/input/sample6.txt", "samples/output/sample6.huf");
 		}
 
 		encode.performEncode();

@@ -10,6 +10,7 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 	private int bytesToSkip;
 	private Map<String, Character> map;
 	private char charToWrite;
+	private boolean endOfFile;
 
 	public WriteDecodedFileWorker(String path, Map<String, Character> map) {
 		super(path);
@@ -17,6 +18,7 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 		this.bytesToSkip = 0;
 		this.firstByte = true;
 		this.charToWrite = (char) 0x00;
+		this.endOfFile = false;
 	}
 
 	/**
@@ -34,7 +36,9 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 	public void doWork(int currentByte) {
 		// TODO: Handle reading in bytes and writing to file
 		//System.out.println(currentByte + " -> " + Integer.toHexString(currentByte) + " -> " + Integer.toBinaryString(currentByte));
-
+		if (this.endOfFile) {
+			return;
+		}
 		if (firstByte) {
 			// We're on the first byte which tells us how many encodings there are
 			// We don't need to decode the dictionary, so we'll set how many bytes
@@ -52,6 +56,10 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 					Character possibility = this.map.get(current);
 					if (possibility != null) {
 						//System.out.println(possibility);
+						if (possibility == '\u0000') {
+							this.endOfFile = true;
+							break;
+						}
 						this.byteBuffer = this.byteBuffer.substring(currentLength);
 						this.charToWrite = possibility;
 						this.writeToFile();
