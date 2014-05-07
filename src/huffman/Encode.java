@@ -32,7 +32,7 @@ public class Encode {
 		Node rootNode = Huffman.huffman(map);
 		// 3. Canonize the Huffman Tree
 		ArrayList<HuffmanTuple> encodings = Huffman.canonizeHuffmanTree(rootNode);
-		System.out.println(encodings);
+		//System.out.println(encodings);
 		// 4. Write the file based on the encoding
 		Huffman.writeEncodedFile(this.sourceFilePath, this.targetFilePath, encodings);
 	}
