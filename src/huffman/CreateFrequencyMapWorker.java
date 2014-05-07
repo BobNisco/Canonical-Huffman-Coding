@@ -7,7 +7,7 @@ import java.util.Map;
  * A class to handle creating a frequency map from an input file.
  * Implements huffman.IFileReader so that we can pass the doWork() function
  * into the function that actually reads a file
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class CreateFrequencyMapWorker implements IFileReaderWorker {
 

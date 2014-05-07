@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * A class to handle all the Huffman algorithm operations
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class Huffman {
 

@@ -2,7 +2,7 @@ package huffman;
 
 /**
  * A huffman.Node class that will be used in the Huffman algorithm
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class Node implements Comparable<Node> {
 	public Node left;

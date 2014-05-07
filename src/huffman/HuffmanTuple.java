@@ -2,7 +2,7 @@ package huffman;
 
 /**
  * A tuple class specifically for Huffman Nodes
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class HuffmanTuple {
 	public char letter;

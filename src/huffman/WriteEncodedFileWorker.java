@@ -9,7 +9,7 @@ import java.util.Map;
  * A class to handle writing to the file while simultaneously reading in from a file
  * with a buffer so that we can take the input, convert it into our Huffman Encoding
  * and write it.
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class WriteEncodedFileWorker extends WriteFileWorker {
 

@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * A decode class for a Huffman-encoded file
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class Decode {
 	private String sourceFilePath;
@@ -36,6 +36,11 @@ public class Decode {
 		Huffman.writeDecodedFile(this.sourceFilePath, this.targetFilePath, lookup);
 	}
 
+	/**
+	 * Convert the Huffman Tuples into a Lookup Map
+	 * @param tuples the arraylist of HuffmanTuples
+	 * @return a Map<String, Character> that maps a representation to a character
+	 */
 	private static Map<String, Character> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {
 		Map<String, Character> map = new HashMap<>();
 		for (HuffmanTuple t : tuples) {

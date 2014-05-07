@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * An huffman.Encode class for a canonical Huffman Tree
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class Encode {
 

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * A JUnit test class for the huffman.Encode class
- * @author Bob Nisco
+ * @author Bob Nisco <BobNisco@gmail.com>
  */
 public class EncodeTest {
 

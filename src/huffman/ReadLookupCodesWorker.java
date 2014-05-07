@@ -3,6 +3,12 @@ package huffman;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class that implements the IFileReaderWorker interface.
+ * Used to read in the first x bytes from the encoded file and
+ * creates the Map of Characters to Integers
+ * @author Bob Nisco <BobNisco@gmail.com>
+ */
 public class ReadLookupCodesWorker implements IFileReaderWorker {
 	protected Map<Character, Integer> map;
 	private int numberOfChars;
@@ -10,6 +16,9 @@ public class ReadLookupCodesWorker implements IFileReaderWorker {
 	private boolean readChar;
 	private char inputChar;
 
+	/**
+	 * No-args constructor
+	 */
 	public ReadLookupCodesWorker() {
 		this.map = new HashMap<>();
 		this.numberOfChars = -1;
@@ -17,6 +26,12 @@ public class ReadLookupCodesWorker implements IFileReaderWorker {
 		this.readChar = false;
 	}
 
+	/**
+	 * The overridden doWork() method.
+	 * Takes in the current byte from the read-in file
+	 * and generates the map.
+	 * @param currentByte the current byte
+	 */
 	@Override
 	public void doWork(int currentByte) {
 		char currentChar = (char) currentByte;

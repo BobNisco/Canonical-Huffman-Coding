@@ -4,14 +4,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * An abstract class which deals with any IFileReaderWorkers who need
+ * to deal with also writing to a file.
+ * @author Bob Nisco <BobNisco@gmail.com>
+ */
 public abstract class WriteFileWorker implements IFileReaderWorker {
 	private File file;
 	protected FileOutputStream fileOutputStream;
 	public String byteBuffer;
 	public static final int NUM_OF_BITS_TO_WRITE = 8;
-
-	protected WriteFileWorker() {
-	}
 
 	/**
 	 * Constructor that takes in the file path of the file to write to
