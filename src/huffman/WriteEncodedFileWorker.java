@@ -15,6 +15,11 @@ public class WriteEncodedFileWorker extends WriteFileWorker {
 
 	public Map<Character, String> map;
 
+	/**
+	 * Constructor
+	 * @param path output path
+	 * @param encodings the encodings
+	 */
 	public WriteEncodedFileWorker(String path, ArrayList<HuffmanTuple> encodings) {
 		super(path);
 		this.map = new HashMap<>();
@@ -33,6 +38,10 @@ public class WriteEncodedFileWorker extends WriteFileWorker {
 		}
 	}
 
+	/**
+	 * Handles writing the beginning part of the file
+	 * @param headerString the header string
+	 */
 	protected void writeBeginningOfFile(String headerString) {
 		for (int i = 0; i < headerString.length(); i += 2) {
 			int intRep = Integer.parseInt(headerString.substring(i, i + 2), 16);

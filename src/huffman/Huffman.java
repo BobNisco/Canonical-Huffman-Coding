@@ -167,10 +167,16 @@ public class Huffman {
 		writeEncodedFile.writeEndOfFile();
 	}
 
+	/**
+	 * The function to handle reading in an encoded file from a path and using the canonical mapping
+	 * to write the decoded output file
+	 * @param inputPath the input file path
+	 * @param outputPath the output file path
+	 * @param map the canonical encodings
+	 */
 	protected static void writeDecodedFile(String inputPath, String outputPath, Map<String, Character> map) {
 		WriteDecodedFileWorker writeDecodedFileWorker = new WriteDecodedFileWorker(outputPath, map);
 		Huffman.readFromBinaryFileAndDoWork(inputPath, writeDecodedFileWorker);
-		System.out.println(writeDecodedFileWorker.byteBuffer);
 	}
 
 	/**

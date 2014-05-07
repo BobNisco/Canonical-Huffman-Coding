@@ -3,9 +3,6 @@ package huffman;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class WriteFileWorker implements IFileReaderWorker {
 	private File file;
