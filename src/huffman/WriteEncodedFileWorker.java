@@ -48,6 +48,12 @@ public class WriteEncodedFileWorker extends WriteFileWorker {
 	 */
 	protected void writeEndOfFile() {
 		byteBuffer += map.get((char) 0x00);
+		// Properly pad the
+		if (byteBuffer.length() != 8) {
+			// determine how many bytes we'll pad by
+			int howManyBytes = byteBuffer.length() / 8;
+			byteBuffer = Huffman.leftPadString(byteBuffer, NUM_OF_BITS_TO_WRITE * (howManyBytes + 1));
+		}
 		this.writeToFile();
 	}
 

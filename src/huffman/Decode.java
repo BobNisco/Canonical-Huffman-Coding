@@ -78,7 +78,7 @@ public class Decode {
 			decode = new Decode(args[0], args[1]);
 		} else {
 			// Sample data for ease of use when running while developing
-			decode = new Decode("samples/output/sample2.huf", "samples/output/sample2_decoded.txt");
+			decode = new Decode("samples/output/sample5.huf", "samples/output/sample5_decoded.txt");
 		}
 
 		decode.performDecode();

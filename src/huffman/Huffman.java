@@ -102,13 +102,10 @@ public class Huffman {
 		int currentNum = 0;
 		for (int i = 0; i < encodings.size(); i++) {
 			HuffmanTuple currentTuple = encodings.get(i);
-			if (currentTuple.representation.length() > Integer.toBinaryString(currentNum).length()) {
-				// Calculate how many shifts to the left we need to make
-				int levelDifference = currentTuple.representation.length() - Integer.toBinaryString(currentNum).length();
-				currentNum = currentNum << levelDifference;
-			}
 			currentTuple.representation = Huffman.rightPadString(Integer.toBinaryString(currentNum), currentTuple.representation.length());
-			currentNum++;
+			if (i < encodings.size() - 1) {
+				currentNum = (currentNum + 1) << (encodings.get(i + 1).representation.length() - currentTuple.representation.length());
+			}
 		}
 	}
 
@@ -189,6 +186,18 @@ public class Huffman {
 		}
 		try {
 			return sb.toString().substring(input.length()) + input;
+		} catch (StringIndexOutOfBoundsException e) {
+			return input;
+		}
+	}
+
+	public static String leftPadString(String input, int length) {
+		StringBuilder sb = new StringBuilder(length);
+		for (int i = 0; i < length; i++) {
+			sb.append("0");
+		}
+		try {
+			return input + sb.toString().substring(input.length());
 		} catch (StringIndexOutOfBoundsException e) {
 			return input;
 		}
