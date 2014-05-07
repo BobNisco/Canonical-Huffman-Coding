@@ -1,10 +1,8 @@
 package huffman.test;
 
-import huffman.Encode;
 import huffman.Huffman;
 import huffman.HuffmanTuple;
 import huffman.Node;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,15 +16,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class EncodeTest {
 
-	private Encode encode;
-
-	@Before
-	public void setUp() throws Exception {
-		encode = new Encode();
-	}
-
 	/**
-	 *
+	 * Tests the creation of a Huffman Tree
 	 * @throws Exception
 	 */
 	@Test
@@ -66,6 +57,10 @@ public class EncodeTest {
 		assertEquals(expectedRootNode.right.right.left.right, rootNode.right.right.left.right);
 	}
 
+	/**
+	 * Tests the creation of a lookup code that would be stored at the beginning of an encoded file
+	 * @throws Exception
+	 */
 	@Test
 	public void testCodeForLookup() throws Exception {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();

@@ -82,7 +82,7 @@ public class WriteEncodedFileWorker extends WriteFileWorker {
 	}
 
 	/**
-	 * Overridden doWork method. Takes the current byte, finds the character ir represents
+	 * Overridden doWork method. Takes the current byte, finds the character it represents
 	 * in our map, and then writes the representation to a file
 	 * @param currentByte the current byte from the input file
 	 */

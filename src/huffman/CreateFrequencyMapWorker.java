@@ -12,7 +12,6 @@ import java.util.Map;
 public class CreateFrequencyMapWorker implements IFileReaderWorker {
 
 	Map<Character, Integer> map;
-	private char currentChar;
 
 	/**
 	 * Constructor
@@ -28,7 +27,7 @@ public class CreateFrequencyMapWorker implements IFileReaderWorker {
 	 */
 	@Override
 	public void doWork(int currentByte) {
-		currentChar = (char) currentByte;
+		char currentChar = (char) currentByte;
 
 		if (map.get(currentChar) == null) {
 			map.put(currentChar, 1);

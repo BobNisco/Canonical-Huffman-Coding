@@ -12,10 +12,6 @@ public class Encode {
 	private String sourceFilePath;
 	private String targetFilePath;
 
-	public Encode() {
-		super();
-	}
-
 	/**
 	 * Constructor that takes in the file path to the source and target file
 	 * @param sourceFilePath input file path

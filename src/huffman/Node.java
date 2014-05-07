@@ -1,5 +1,7 @@
 package huffman;
 
+import com.sun.istack.internal.NotNull;
+
 /**
  * A huffman.Node class that will be used in the Huffman algorithm
  * @author Bob Nisco <BobNisco@gmail.com>
@@ -11,9 +13,17 @@ public class Node implements Comparable<Node> {
 	public char letter;
 	public final char INTERIOR_NODE_CHAR = (char) 0x01;
 
+	/**
+	 * No-args constructor
+	 */
 	public Node() {
 	}
 
+	/**
+	 * Node constructor that only takes a frequency.
+	 * Sets the letter to the INTERIOR_NODE_CHAR to denote that this is an interior node
+	 * @param freq the frequency of this node
+	 */
 	public Node(int freq) {
 		this.freq = freq;
 		// We will use 0x01 ASCII code to denote these types of new nodes
@@ -22,13 +32,11 @@ public class Node implements Comparable<Node> {
 		this.letter = INTERIOR_NODE_CHAR;
 	}
 
-	public Node(Node left, Node right, int freq, char letter) {
-		this.left = left;
-		this.right = right;
-		this.freq = freq;
-		this.letter = letter;
-	}
-
+	/**
+	 * Node constructor
+	 * @param letter the letter of this node
+	 * @param freq the frequency of this node
+	 */
 	public Node(char letter, int freq) {
 		this.left = null;
 		this.right = null;
@@ -36,6 +44,10 @@ public class Node implements Comparable<Node> {
 		this.letter = letter;
 	}
 
+	/**
+	 * Overriden toString method
+	 * @return a String representation of this node
+	 */
 	@Override
 	public String toString() {
 		return this.letter + " => " + this.freq;
@@ -57,6 +69,12 @@ public class Node implements Comparable<Node> {
 		return 0;
 	}
 
+	/**
+	 * Overriden equals method so we can properly compare Nodes
+	 * @param obj the object to compare to
+	 * @return true if the nodes have the same frequency and letter,
+	 *         false otherwise
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) {

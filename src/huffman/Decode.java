@@ -12,10 +12,6 @@ public class Decode {
 	private String sourceFilePath;
 	private String targetFilePath;
 
-	public Decode() {
-		super();
-	}
-
 	public Decode(String sourceFilePath, String targetFilePath) {
 		this.sourceFilePath = sourceFilePath;
 		this.targetFilePath = targetFilePath;
