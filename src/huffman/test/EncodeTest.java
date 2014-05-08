@@ -73,7 +73,7 @@ public class EncodeTest {
 		list.add(new HuffmanTuple((char) 0x00, "011"));
 
 		String generatedString = Huffman.generateLookupCode(list);
-		String expectedString = "0561036203630364010003";
+		String expectedString = "0500036103620363036401";
 		assertEquals(expectedString, generatedString);
 	}
 

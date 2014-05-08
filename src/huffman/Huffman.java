@@ -147,7 +147,19 @@ public class Huffman {
 		StringBuilder builder = new StringBuilder();
 		// 1. First will be the length of the list
 		builder.append(Huffman.rightPadString(Integer.toHexString(encodings.size()), 2));
-		// 2. For each of the letters, generate its hex encoding with length
+		// 2. Alphabetize the list of lookup codes so it's easier to read in hex/binary
+		Collections.sort(encodings, new Comparator<HuffmanTuple>() {
+			@Override
+			public int compare(HuffmanTuple o1, HuffmanTuple o2) {
+				if (o1.letter > o2.letter) {
+					return 1;
+				} else if (o1.letter < o2.letter) {
+					return -1;
+				}
+				return 0;
+			}
+		});
+		// 3. For each of the letters, generate its hex encoding with length
 		for (HuffmanTuple tuple : encodings) {
 			builder.append(Huffman.rightPadString(Integer.toHexString((int) tuple.letter), 2));
 			builder.append(Huffman.rightPadString(Integer.toHexString(tuple.representation.length()), 2));
