@@ -1,7 +1,5 @@
 package huffman;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * A huffman.Node class that will be used in the Huffman algorithm
  * @author Bob Nisco <BobNisco@gmail.com>
