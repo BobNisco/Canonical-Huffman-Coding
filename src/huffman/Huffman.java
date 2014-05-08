@@ -186,10 +186,9 @@ public class Huffman {
 	 * to write the decoded output file
 	 * @param inputPath the input file path
 	 * @param outputPath the output file path
-	 * @param map the canonical encodings
 	 */
-	protected static void writeDecodedFile(String inputPath, String outputPath, Map<String, Character> map) {
-		WriteDecodedFileWorker writeDecodedFileWorker = new WriteDecodedFileWorker(outputPath, map);
+	protected static void writeDecodedFile(String inputPath, String outputPath) {
+		WriteDecodedFileWorker writeDecodedFileWorker = new WriteDecodedFileWorker(outputPath);
 		Huffman.readFromBinaryFileAndDoWork(inputPath, writeDecodedFileWorker);
 	}
 
@@ -233,12 +232,6 @@ public class Huffman {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
 		Huffman.performInorderTraversal(root, "", list);
 		return list;
-	}
-
-	protected static Map<Character, Integer> createMapFromEncodedFile(String filePath) {
-		ReadLookupCodesWorker readLookupCodesWorker = new ReadLookupCodesWorker();
-		Huffman.readFromFileAndDoWork(filePath, readLookupCodesWorker);
-		return readLookupCodesWorker.map;
 	}
 
 	/**

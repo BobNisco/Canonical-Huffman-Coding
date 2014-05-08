@@ -21,16 +21,8 @@ public class Decode {
 	 * The runner function to perform the decoding
 	 */
 	private void performDecode() {
-		// 1. Read in file and build huffman tree
-		Map<Character, Integer> map = Huffman.createMapFromEncodedFile(this.sourceFilePath);
-		ArrayList<HuffmanTuple> tuples = Decode.convertMapToTuples(map);
-		Huffman.sortHuffmanTuples(tuples);
-		Huffman.canonizeEncodings(tuples);
-		// 2. Store codes for lookup
-		Map<String, Character> lookup = Decode.convertTuplesToLookupMap(tuples);
-		//System.out.println(lookup);
-		// 3. Decode data and write character output
-		Huffman.writeDecodedFile(this.sourceFilePath, this.targetFilePath, lookup);
+
+		Huffman.writeDecodedFile(this.sourceFilePath, this.targetFilePath);
 	}
 
 	/**
@@ -38,7 +30,7 @@ public class Decode {
 	 * @param tuples the arraylist of HuffmanTuples
 	 * @return a Map<String, Character> that maps a representation to a character
 	 */
-	private static Map<String, Character> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {
+	protected static Map<String, Character> convertTuplesToLookupMap(ArrayList<HuffmanTuple> tuples) {
 		Map<String, Character> map = new HashMap<>();
 		for (HuffmanTuple t : tuples) {
 			map.put(t.representation, t.letter);
@@ -53,7 +45,7 @@ public class Decode {
 	 * @param map map of character to length count
 	 * @return the list of HuffmanTuples
 	 */
-	private static ArrayList<HuffmanTuple> convertMapToTuples(Map<Character, Integer> map) {
+	protected static ArrayList<HuffmanTuple> convertMapToTuples(Map<Character, Integer> map) {
 		ArrayList<HuffmanTuple> list = new ArrayList<>();
 		for (Map.Entry<Character, Integer> entry : map.entrySet()) {
 			// Make up garbage representations based on how long the rep is
