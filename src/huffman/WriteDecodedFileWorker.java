@@ -81,6 +81,8 @@ public class WriteDecodedFileWorker extends WriteFileWorker {
 			Huffman.canonizeEncodings(tuples);
 			// Put them into a hashmap for quick lookup
 			this.map = Decode.convertTuplesToLookupMap(tuples);
+			System.out.println("==== Decoded Canonized Huffman Encodings ====");
+			System.out.println(this.map);
 			// Move onto decoding the encoded file state
 			this.currentState = State.ENCODED_FILE;
 		}
