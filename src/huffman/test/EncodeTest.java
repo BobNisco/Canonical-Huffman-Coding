@@ -79,30 +79,30 @@ public class EncodeTest {
 
 	@Test
 	public void testEncode01() throws Exception {
-		this.testEncode("samples/provided-samples/text/sample1.txt", "samples/provided-samples/encoded/sample1_encoded.huf", "samples/provided-samples/encoded/sample1.huf");
+		EncodeTest.testEncode("samples/provided-samples/text/sample1.txt", "samples/provided-samples/encoded/sample1_encoded.huf", "samples/provided-samples/encoded/sample1.huf");
 	}
 
 	@Test
 	public void testEncode02() throws Exception {
-		this.testEncode("samples/provided-samples/text/sample2.txt", "samples/provided-samples/encoded/sample2_encoded.huf", "samples/provided-samples/encoded/sample2.huf");
+		EncodeTest.testEncode("samples/provided-samples/text/sample2.txt", "samples/provided-samples/encoded/sample2_encoded.huf", "samples/provided-samples/encoded/sample2.huf");
 	}
 
 	@Test
 	public void testEncode03() throws Exception {
-		this.testEncode("samples/provided-samples/text/sample3.txt", "samples/provided-samples/encoded/sample3_encoded.huf", "samples/provided-samples/encoded/sample3.huf");
+		EncodeTest.testEncode("samples/provided-samples/text/sample3.txt", "samples/provided-samples/encoded/sample3_encoded.huf", "samples/provided-samples/encoded/sample3.huf");
 	}
 
 	@Test
 	public void testEncode04() throws Exception {
-		this.testEncode("samples/provided-samples/text/sample4.txt", "samples/provided-samples/encoded/sample4_encoded.huf", "samples/provided-samples/encoded/sample4.huf");
+		EncodeTest.testEncode("samples/provided-samples/text/sample4.txt", "samples/provided-samples/encoded/sample4_encoded.huf", "samples/provided-samples/encoded/sample4.huf");
 	}
 
 	@Test
 	public void testEncode05() throws Exception {
-		this.testEncode("samples/provided-samples/text/sample5.txt", "samples/provided-samples/encoded/sample5_encoded.huf", "samples/provided-samples/encoded/sample5.huf");
+		EncodeTest.testEncode("samples/provided-samples/text/sample5.txt", "samples/provided-samples/encoded/sample5_encoded.huf", "samples/provided-samples/encoded/sample5.huf");
 	}
 
-	private void testEncode(String inputFile, String encodedFile, String expectedEncodedFile) throws Exception {
+	protected static void testEncode(String inputFile, String encodedFile, String expectedEncodedFile) throws Exception {
 		String[] args = new String[2];
 		args[0] = inputFile;
 		args[1] = encodedFile;
